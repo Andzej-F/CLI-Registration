@@ -21,9 +21,10 @@ Application should store these fields:
 • Date and Time
 
 Application should have the following functionality
-• Add appointment
+• V Add appointment
 • Edit appointment
 • Delete appointment
+
 • Print list of appointment for specific date, sorted by time
 Bonus points if you:
 • Don’t use any framework
@@ -45,7 +46,7 @@ function showMainMenu()
 
     switch ($input) {
         case 1:
-            require_once('login.php');
+            require_once('register.php');
             exit();
         case 2:
             require_once('login.php');

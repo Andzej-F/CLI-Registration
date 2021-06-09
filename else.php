@@ -1,4 +1,40 @@
 <?php
-// echo date("H:i", time());
-// echo date("H:i:s");
-echo date("H:i:s", time());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$time1 = "06:00:12";
+$time2 = "08:00:12";
+if ($time2 > $time1) {
+    echo "ok";
+} else {
+    echo "not ok";
+}
