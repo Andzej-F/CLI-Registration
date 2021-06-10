@@ -29,8 +29,8 @@ Application should have the following functionality
 Bonus points if you:
 • Don’t use any framework
 • Do validations (valid email, phone number, identification number)
-• Add ability to import/export appointments in .csv format. Example of .csv file should 
-be added to repositor
+• Add ability to import/export appointments in .csv format. 
+  Example of .csv file should be added to repositor
  */
 showMainMenu();
 
@@ -46,7 +46,7 @@ function showMainMenu()
 
     switch ($input) {
         case 1:
-            require_once('register.php');
+            require_once('CRUD/register.php');
             exit();
         case 2:
             require_once('login.php');

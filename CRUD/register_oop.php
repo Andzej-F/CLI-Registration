@@ -1,6 +1,8 @@
 <?php
+
 require_once './functions.php';
 require_once './db/db_inc.php';
+require_once './User.php';
 
 echo "\033[0;35m Registration Page\n \033[0m";
 echo "To exit the application press X\n";

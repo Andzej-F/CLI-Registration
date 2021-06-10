@@ -13,7 +13,8 @@ CREATE TABLE `users` (
   `email` varchar(64) NOT NULL,
   `phone` int(11) NOT NULL,
   `nin` int(11) NOT NULL,
-  `date_and_time` datetime NOT NULL,
+  `date` varchar(5) NOT NULL,
+  `time` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nin` (`nin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
