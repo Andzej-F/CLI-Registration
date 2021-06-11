@@ -6,52 +6,40 @@ echo "\033[0;35m Registration Page\n \033[0m";
 echo "To exit the application press X\n";
 echo "Please enter the following information about you: X\n";
 
-while (1) {
-    while (1) {
+do {
+    do {
         $input = readline("Name and surname:");
         $name = valName($input);
-        if (!is_null($name))
-            break;
-    }
+    } while (is_null($name));
 
-    while (1) {
+    do {
         $input = readline("Email:");
         $email = valEmail($input);
-        if (!is_null($email))
-            break;
-    }
+    } while (is_null($email));
 
-    while (1) {
+    do {
         $input = readline("Phone number (8 digits) +370:");
         $phone = valNumber($input);
-        if (!is_null(valNumber($phone)))
-            break;
-    }
+    } while (is_null(valNumber($phone)));
 
-    while (1) {
+    do {
         $input = readline("National ID number (8 digits):");
         /* TODO valNin($input)*/
         $nin = valNumber($input);
-        if (!is_null(valNumber($nin)))
-            break;
-    }
+    } while (is_null(valNumber($nin)));
 
-    while (1) {
+    do {
         $input = readline("Preferred appointment date (MM-YY):");
         $date = valDate($input);
-        if (!is_null($date)) {
-            break;
-        }
-    }
+    } while (is_null($date));
 
-    while (1) {
+    do {
         $input = readline("Time (written in format HH:MM):");
         $time = valTime($input, $date);
-        if (!is_null($time))
-            break;
-    }
-    break;
-}
+    } while (is_null($time));
+
+    $success = TRUE;
+} while (!$success);
 
 /* Include nin number to the temporary file */
 $file = 'file';
@@ -86,7 +74,7 @@ try {
     throw new Exception("\033[01;31m Error: Database query error\n \033[0m");
 }
 
-/* Redirect user to "user settings" */
+/* Redirect user to main menu */
 echo "\033[01;32mYou have been successfully registered\n \033[0m";
-require_once 'user_settings.php';
+require_once 'main.php';
 exit();

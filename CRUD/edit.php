@@ -2,13 +2,7 @@
 require_once './functions.php';
 require_once './db/db_inc.php';
 
-/* Retrieve nin from the file */
-$nin = file_get_contents('file');
-echo intval($nin, 10);
-echo "n";
-$au = 25;
-echo $au;
-$userData = getUserData($nin);
+$userData = getUserData($email);
 
 $name = $userData['name'];
 $email = $userData['email'];
@@ -19,7 +13,7 @@ $time = $userData['time'];
 
 showEditMenu($name, $email, $phone, $nin, $date, $time);
 
-function getUserData($nin): array
+function getUserData($email): array
 {
     global $pdo;
 
@@ -39,7 +33,7 @@ function getUserData($nin): array
     return $result;
 }
 
-print_r(getUserData($nin));
+print_r(getUserData($email));
 
 function showEditMenu($name, $email, $phone, $nin, $date, $time)
 {
