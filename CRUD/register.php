@@ -53,8 +53,11 @@ while (1) {
     break;
 }
 
-/* Create user's object */
-$user = new User($name, $email, $phone, $nin, $date, $time);
+/* Include nin number to the temporary file */
+$file = 'file';
+$content = json_encode($nin);
+file_put_contents($file, $content);
+$content = json_decode(file_get_contents($file), TRUE);
 
 /* After successful validation write user's data to the database */
 

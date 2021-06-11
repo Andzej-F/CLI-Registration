@@ -1,3 +1,4 @@
 <?php
-require_once './User.php';
-echo $user->nin;
+$nin = file_get_contents('file');
+echo intval($nin);
+echo gettype($nin);

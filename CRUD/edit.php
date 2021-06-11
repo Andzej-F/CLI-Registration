@@ -1,12 +1,14 @@
 <?php
 require_once './functions.php';
 require_once './db/db_inc.php';
-require_once './User.php';
 
-
-print_r($argv);
-
-$userData = getUserData();
+/* Retrieve nin from the file */
+$nin = file_get_contents('file');
+echo intval($nin, 10);
+echo "n";
+$au = 25;
+echo $au;
+$userData = getUserData($nin);
 
 $name = $userData['name'];
 $email = $userData['email'];
@@ -24,9 +26,12 @@ function getUserData($nin): array
     $query = "SELECT * FROM `users`
 	          WHERE (nin = :nin )";
 
+    /* Values array for PDO */
+    $values = [':nin' => $nin];
+
     try {
         $res = $pdo->prepare($query);
-        $res->execute();
+        $res->execute($values);
         $result = $res->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         throw new Exception('Database query error');
