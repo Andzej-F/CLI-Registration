@@ -1,11 +1,8 @@
 <?php
 /* Get database connection script */
 require_once('./db/db_inc.php');
+
 /*
-
-echo ("\033[01;31m Error: \n \033[0m");
-
-
 Create an application that allows users to register for vaccination.
 Users should be able to provide their personal information along with
 preferred date and time for the appointment. 
@@ -35,16 +32,14 @@ Bonus points if you:
 • Don’t use any framework
 • Do validations (valid email, phone number, identification number)
 • Add ability to import/export appointments in .csv format. 
-  Example of .csv file should be added to repositor
+  Example of .csv file should be added to repository
  */
-// require_once './functions.php';
-// require_once './db/db_inc.php';
 
 /*
-    App design
+    App Structure
 
  Main menu:
-  -- register (to add appointment) 
+  -- register (same as add appointment) 
     -- User settings page
         -- Edit appointment info
         -- Delete appointment date
@@ -62,6 +57,7 @@ Bonus points if you:
 
 
 showMainMenu();
+//TODO diplay functions in the same order as shown in main menu
 
 /* ----------- CRUD frunctions-------------- */
 /* Display main menu */
@@ -70,23 +66,19 @@ function showMainMenu()
     echo "\033[0;35m Registration for Vaccine Form\n \033[0m";
     echo "To proceed, choose the option\n";
     echo "1. Register for appointment\n";
-    echo "2. Login to user account (to edit or delete appointment)\n";
-    echo "3. Medical personnel login\n";
-    echo "4. Exit the application\n";
+    echo "2. Login \n";
+    echo "X. Exit the application\n";
 
     $input = readline();
 
     switch ($input) {
         case 1:
-            userRegister();
+            addAppointment();
             break;
         case 2:
             login();
             break;
-        case 3:
-            // require_once('med_login.php');
-            //exit();
-        case 4:
+        case "X":
             exit("App closed");
         default:
             echo ("\033[01;31m Error: please enter correct value from the menu\n \033[0m");
@@ -95,7 +87,7 @@ function showMainMenu()
 }
 
 /* Add user data to the system */
-function userRegister()
+function addAppointment()
 {
     echo "\033[0;35m Registration Page\n \033[0m";
     echo "To exit the application press X\n";
@@ -565,25 +557,25 @@ function login()
 
     /* Display menu options */
     echo "\033[0;35m User Login Page\n \033[0m";
-    echo "To login, please provide your email\n";
     echo "Press X to return to main menu\n";
+    echo "To login, please provide your email: \n";
 
-    $inputEmail = readline();
+    $email = readline();
 
-    if ($inputEmail === 'X') {
+    if ($email === 'X') {
         showMainMenu();
     }
     /* Check if medical personnel provided correct menu
-    if ($inputEmail === $medEmail) {
+    if ($email === $medEmail) {
         showMedMenu();
     }
     */
     /* Check user's email*/
-    if (valEmail($inputEmail)) {
+    if (valEmail($email)) {
 
         // Override method that checks if email exists in db
 
         // If all good show user settings
-        showUserSettings($inputEmail);
+        showUserSettings($email);
     }
 }
