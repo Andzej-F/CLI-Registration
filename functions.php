@@ -1,4 +1,8 @@
 <?php
+
+/* Get database connection script */
+require_once('./db/db_inc.php');
+
 /* ----- Validation functions ----- */
 /* Validate user name and surname */
 function valName($name): ?string
@@ -274,4 +278,224 @@ function valTime($time, $appointmentDay): ?string
 
     /* If everythink is OK, return $time value in "HH:mm" format */
     return $time;
+}
+
+/* ----------- CRUD frunctions-------------- */
+
+/* Display main menu */
+function showMainMenu()
+{
+    echo "\033[0;35m Registration for Vaccine Form\n \033[0m";
+    echo "To proceed, choose the option\n";
+    echo "1. Register for appointment\n";
+    echo "2. Login to user account (to edit, delete, appointment)\n";
+    echo "3. Medical personnel login\n";
+    echo "4. Exit the application\n";
+
+    $input = readline();
+
+    switch ($input) {
+        case 1:
+            // require_once('CRUD/register.php');
+            userRegister();
+            exit();
+        case 2:
+            //require_once('login.php');
+            //showLogin();
+            // exit();
+        case 3:
+            // require_once('med_login.php');
+            //exit();
+        case 4:
+            exit("App closed");
+        default:
+            echo ("\033[01;31m Error: please enter correct value from the menu\n \033[0m");
+            showMainMenu();
+    }
+}
+
+/* Add user data to the system */
+function userRegister()
+{
+    echo "\033[0;35m Registration Page\n \033[0m";
+    echo "To exit the application press X\n";
+    echo "Please enter the following information about you: X\n";
+
+    do {
+        do {
+            $input = readline("Name and surname:");
+            $name = valName($input);
+        } while (is_null($name));
+
+        do {
+            $input = readline("Email:");
+            $email = valEmail($input);
+        } while (is_null($email));
+
+        do {
+            $input = readline("Phone number (8 digits) +370:");
+            $phone = valNumber($input);
+        } while (is_null(valNumber($phone)));
+
+        do {
+            $input = readline("National ID number (8 digits):");
+            /* TODO valNin($input)*/
+            $nin = valNumber($input);
+        } while (is_null(valNumber($nin)));
+
+        do {
+            $input = readline("Preferred appointment date (MM-YY):");
+            $date = valDate($input);
+        } while (is_null($date));
+
+        do {
+            $input = readline("Time (written in format HH:MM):");
+            $time = valTime($input, $date);
+        } while (is_null($time));
+
+        $success = TRUE;
+    } while (!$success);
+
+    /* After successful validation write user's data to the database */
+
+    global $pdo;
+
+    /* Insert query template */
+    $query = 'INSERT INTO users (name, email, phone, nin, date, time)
+                  VALUES (:name, :email, :phone, :nin, :date, :time)';
+
+    /* Values array for PDO */
+    $values = [
+        ':name' => $name,
+        ':email' => $email,
+        ':phone' => $phone,
+        ':nin' => $nin,
+        ':date' => $date,
+        ':time' => $time,
+    ];
+
+    /* Execute the query */
+    try {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    } catch (PDOException $e) {
+        /* If there is a PDO exception, throw a standard exception */
+        throw new Exception("\033[01;31m Error: Database query error\n \033[0m");
+    }
+    /* After successful registration "redirect" to userSettings menu */
+    echo "\033[01;32mYou have been successfully registered\n \033[0m";
+    showUserSettings($email);
+}
+
+/* Display user settings options for registered or loginned users */
+function showUserSettings($email)
+{
+    echo "\033[0;35m Welcome to User Settings Page\n \033[0m";
+    echo "To proceed, choose the option\n";
+    echo "1. Edit appointment\n";
+    echo "2. Delete appointment\n";
+    echo "3. Go to main menu\n";
+    echo "4. Exit the application\n";
+
+    $input = readline();
+
+    switch ($input) {
+        case 1:
+            showEditMenu($email);
+            // require_once('edit.php');
+            exit();
+        case 2:
+            require_once('delete.php');
+            exit();
+        case 3:
+            require_once('main.php');
+            exit();
+        case 4:
+            exit("Application closed");
+        default:
+            echo ("\033[01;31m Error: please enter correct value from the menu\n \033[0m");
+            showUserSettings($email);
+    }
+}
+
+/* Edit menu function */
+function showEditMenu($email)
+{
+    global $pdo;
+
+    /* Select user data from the database */
+    $query = "SELECT * FROM `users`
+	          WHERE (email = :email)";
+
+    /* Values array for PDO */
+    $values = [':email' => $email];
+
+    try {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+        $result = $res->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        throw new Exception('Database query error');
+    }
+
+    echo "\033[0;35m Choose the data fields you would like to edit\n \033[0m";
+    echo "1. Name: " . $result['name'] . "\n";
+    echo "2. Email address: " . $result['email'] . "\n";
+    echo "3. Telephone number: " . $result['phone'] . "\n";
+    echo "4. National ID number:" . $result['nin'] . "\n";
+    echo "5. Date: " . $result['date'] . "\n";
+    echo "6. Time:" . $result['time'] . " \n";
+    echo "7. Go to main menu\n";
+    echo "8. Exit the application\n";
+
+    $input = readline();
+
+    switch ($input) {
+        case 1:
+            while (1) {
+                $input = readline("Enter new name value:");
+                $name = valName($input);
+                if (!is_null($name)) {
+                    editName($name, $email);
+                    break;
+                }
+            }
+            echo "Name successfully changed\n";
+            break;
+        case 7:
+            showMainMenu();
+            // require_once('main.php');
+            exit();
+        case 8:
+            exit("App closed");
+        default:
+            echo ("\033[01;31m Error: please enter correct value from the menu\n \033[0m");
+            showEditMenu($email);
+    }
+}
+
+/* Edits name entry in the database */
+function editName($name, $email)
+{
+    global $pdo;
+
+    /* Edit query template */
+    $query = "UPDATE users 
+              SET name = :name
+              WHERE (email = :email)";
+
+    /* Values array for PDO */
+    $values = [':name' => $name, ':email' => $email];
+
+    /* Execute the query */
+    try {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    } catch (PDOException $e) {
+        /* If there is a PDO exception, throw a standard exception */
+        throw new Exception('Database query error');
+    }
+    /* After name has been successfully changed "redirect" to showEditMenu($email) */
+    echo "\033[01;32mName has been successfully changed\n \033[0m";
+    showEditMenu($email);
 }

@@ -62,13 +62,21 @@
 // var_dump($options);
 
 // Lit 3 commandes de l'utilisateur
-for ($i = 0; $i < 3; $i++) {
-    $line = readline("Commande : ");
-    readline_add_history($line);
-}
+// for ($i = 0; $i < 3; $i++) {
+//     $line = readline("Commande : ");
+//     readline_add_history($line);
+// }
 
-// Liste l'historique
-print_r(readline_list_history());
+// // Liste l'historique
+// print_r(readline_list_history());
 
-// Liste les variables
-print_r(readline_info());
+// // Liste les variables
+// print_r(readline_info());
+
+// require_once 'globals.php';
+// echo Globals::$car;
+
+// $argv[] = 25;
+// var_dump($argv);
+
+echo file_get_contents('main.php');
