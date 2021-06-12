@@ -41,14 +41,23 @@ Bonus points if you:
 // require_once './db/db_inc.php';
 
 /*
+    App design
+
  Main menu:
-  - register (to add appointment) 
-  - login (with email to edit appointment)
-    -- Edit appointment info
-    -- Delete appointment date
-    -- Go to main menu
-  - med personel login 
-  - exit the app
+  -- register (to add appointment) 
+    -- User settings page
+        -- Edit appointment info
+        -- Delete appointment date
+        -- Go to main menu
+  -- login
+    -- user login
+        -- User settings page
+            -- Edit appointment info
+            -- Delete appointment date
+            -- Go to main menu
+    -- med personnel login
+        -- Show appointments
+  -- exit the app
  */
 
 
