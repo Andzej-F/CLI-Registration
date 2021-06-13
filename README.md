@@ -4,18 +4,17 @@
 
 --- Using Application ---
 
--- open "install.php" file (when runnig the application for the first time), that will create schema `registration` and `users` table
--- open "main.php" file every time, you wish to start the app
+-- open "install.php" file (when runnig the application for the first time), that will create schema `registration` and `users` table and will populate some example data to the table
+-- open "main.php" file every time, you wish to start the application
 
  -- Select "Register for appointment" option to create new "appointment"
   -- After that you will be redirected to the "User Settings Page"
   -- Choose preferred option
 
 - Login
-  -- If you have been register for "appointment", use your email as a login
-     -- After that you will be redirected to the "User Settings Page"
-  -- For "medical personnel" enter "med@med.com" for login
-     -- After that "Registered Appointment Dates menu" will appear
+  -- After being registered, use your email as a login to access "User Settings Page"
+  -- For "medical personnel" login enter "med@med.com"
+     -- After that "Registered Appointment Dates" menu will appear
      -- Type preferred date to view the details
 
 --- Structure ---
