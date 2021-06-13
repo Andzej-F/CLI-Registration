@@ -3,7 +3,6 @@
 --
 CREATE DATABASE IF NOT EXISTS `registration`;
 
-
 --
 -- Table structure for table `users`
 --
