@@ -25,7 +25,6 @@ function register(): int
 
         do {
             $input = readline("National ID number (8 digits):");
-            /* TODO valNin($input)*/
             $nin = valNumber($input);
         } while (is_null(valNumber($nin)));
 
@@ -101,8 +100,6 @@ function login()
     /* Check user's email*/
     $email = valEmail($input);
     if (!is_null($email)) {
-
-        // TODO Override method that checks if email exists in db
 
         /* Global $pdo object */
         global $pdo;

@@ -72,7 +72,7 @@ function showUserSettings($id)
             exit();
         case 2:
             delete($id);
-            echo 'Your appointment has been cancelled';
+            echo "Your appointment has been cancelled\n";
             showMainMenu();
             exit();
         case 3:
