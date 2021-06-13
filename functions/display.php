@@ -18,7 +18,6 @@ function showMainMenu()
             /* Initialise user id */
             $id = register();
             echo "\033[01;32mYou have been successfully registered\n \033[0m";
-            // $id = getUserId($email);
             showUserSettings($id);
             exit();
         case 2:

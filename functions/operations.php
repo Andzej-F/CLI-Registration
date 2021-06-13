@@ -21,7 +21,7 @@ function register(): int
         do {
             $input = readline("Phone number (8 digits) +370:");
             $phone = valNumber($input);
-        } while (is_null(valNumber($phone)));
+        } while (is_null($phone));
 
         do {
             $input = readline("National ID number (8 digits):");
