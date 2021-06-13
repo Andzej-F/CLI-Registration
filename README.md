@@ -27,6 +27,8 @@
 --Delete appointment
 --Print list of appointment for specific date(for medical personnel)
 --User input validations (name, email, phone number, ID number, date, time)
+
+Application Screenshots
 </pre>
 
 ![medlogin1](https://user-images.githubusercontent.com/70884391/121813363-648a7400-cc74-11eb-9fc4-0e3075c68ba6.JPG)
