@@ -15,7 +15,7 @@
             --Edit appointment info
             --Delete appointment date
             --Go to main menu
-    --Medical Personnel Login
+    --Medical Personnel Login (login email: med@med.com)
         -- Show appointments
   --Exit the application
   
