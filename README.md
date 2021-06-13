@@ -16,7 +16,8 @@
             --Delete appointment date
             --Go to main menu
     --Medical Personnel Login (login with email med@med.com)
-        -- Show appointments
+        -- Show appointments </pre>
+        ![alt text] (https://github.com/Andzej-F/CLI-Registration/blob/main/img/medlogin1.JPG)
   --Exit the application
   
   
